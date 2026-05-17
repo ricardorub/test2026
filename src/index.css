@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-space-900: #050505;
+  --color-space-800: #0a0a1a;
+  --color-space-700: #1a1a3a;
+
+  --color-neon-blue: #00f2ff;
+  --color-neon-purple: #bc13fe;
+  --color-neon-pink: #ff00ff;
+  --color-neon-green: #39ff14;
+
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 3s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+body {
+  margin: 0;
+  background-color: #000;
+  color: white;
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow: hidden;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+canvas {
+  touch-action: none;
+}
