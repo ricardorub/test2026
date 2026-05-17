@@ -1,8 +1,9 @@
 import React from 'react'
 import { useGameStore } from '../store'
 import { audioManager } from '../audio'
-import { Terminal as TerminalIcon, Users, Zap, Heart, Rocket, User } from 'lucide-react'
+import { Terminal as TerminalIcon, Users, Zap, Heart, Rocket } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { JaxAvatar, SarahAvatar, KaelAvatar, MiraAvatar } from './Avatars'
 
 interface Option {
   text: string
@@ -18,6 +19,7 @@ interface DialogueItem {
     name: string
     role: string
     color: string
+    Avatar: React.FC
   }
   options: Option[]
 }
@@ -30,7 +32,8 @@ const dialogueContent: Record<string, DialogueItem> = {
     character: {
       name: "Jax",
       role: "Engineering Lead",
-      color: "bg-yellow-500"
+      color: "bg-yellow-500/20",
+      Avatar: JaxAvatar
     },
     options: [
       { text: "Recalibrate the antimatter flow (Technical)", cat: "technical", val: 10 },
@@ -44,7 +47,8 @@ const dialogueContent: Record<string, DialogueItem> = {
     character: {
       name: "Sarah",
       role: "First Officer",
-      color: "bg-blue-500"
+      color: "bg-blue-500/20",
+      Avatar: SarahAvatar
     },
     options: [
       { text: "Take command and assign specific roles (Leadership)", cat: "leadership", val: 10 },
@@ -58,7 +62,8 @@ const dialogueContent: Record<string, DialogueItem> = {
     character: {
       name: "Kael",
       role: "Communications specialist",
-      color: "bg-purple-500"
+      color: "bg-purple-500/20",
+      Avatar: KaelAvatar
     },
     options: [
       { text: "Decode the underlying pattern (Analytical)", cat: "analytical", val: 10 },
@@ -72,7 +77,8 @@ const dialogueContent: Record<string, DialogueItem> = {
     character: {
       name: "Mira",
       role: "Ship Counselor",
-      color: "bg-pink-500"
+      color: "bg-pink-500/20",
+      Avatar: MiraAvatar
     },
     options: [
       { text: "Organize a group recreational event (Empathy)", cat: "empathy", val: 10 },
@@ -200,11 +206,15 @@ const Interface: React.FC = () => {
           >
             {/* Character Portrait */}
             <div className="flex-shrink-0 flex flex-col items-center gap-2">
-              <div className={`w-24 h-24 rounded-2xl ${currentDialogue.character.color} flex items-center justify-center border-4 border-white/10 shadow-lg`}>
-                <User size={48} className="text-white" />
-              </div>
+              <motion.div
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className={`w-32 h-32 rounded-2xl ${currentDialogue.character.color} flex items-center justify-center border-4 border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.1)] overflow-hidden`}
+              >
+                <currentDialogue.character.Avatar />
+              </motion.div>
               <div className="text-center">
-                <div className="text-white font-bold text-sm leading-tight">{currentDialogue.character.name}</div>
+                <div className="text-white font-bold text-base leading-tight tracking-wide">{currentDialogue.character.name}</div>
                 <div className="text-gray-500 text-[10px] uppercase tracking-tighter">{currentDialogue.character.role}</div>
               </div>
             </div>
